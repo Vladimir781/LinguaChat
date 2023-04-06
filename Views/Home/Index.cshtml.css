@@ -1,0 +1,122 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.text-h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
+    width: 582px;
+    height: 292px;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+
+.main {
+    height:5000px;
+}
+.main-btn {
+    box-sizing: border-box;
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 179px;
+    height: 34px;
+    /* gradient */
+
+    background: linear-gradient(90deg, #2B59FF 0%, #BB2BFF 100%);
+    border: 1px solid #676767;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.welcome-header {
+    padding: 13% 0% 35% 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.welcome-header__title-main {
+
+
+    color: #E0E0E0;
+    /* Inside auto layout */
+
+}
+.welcome-header__title-description {
+    color: #B7B7B7;
+}
+.welcome-header__btn {
+
+}
+
+.sign {
+
+    display:flex;
+    align-items:center;
+   
+}
+.sign__register {
+    box-sizing: border-box;
+    /* Auto layout */
+    margin-top: 13px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 179px;
+    height: 34px;
+    /* gradient */
+
+    background: linear-gradient(90deg, #2B59FF 0%, #BB2BFF 100%);
+    border: 1px solid #676767;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+.sign__login {
+    /* Frame 8 */
+    /* Auto layout */
+    margin-top: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    width: 188px;
+    height: 24px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+
+
+.cards {
+    padding:5%;
+}
+.card {
+    margin-top:5%;
+}

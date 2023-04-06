@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat", "Chat.csproj", "{4290AF39-2C9B-44DD-B4D7-3D0C5B4E4F75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88F9AB1B-6070-4A62-B9E3-D5F91A4CD28E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4290AF39-2C9B-44DD-B4D7-3D0C5B4E4F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4290AF39-2C9B-44DD-B4D7-3D0C5B4E4F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4290AF39-2C9B-44DD-B4D7-3D0C5B4E4F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4290AF39-2C9B-44DD-B4D7-3D0C5B4E4F75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA5AB9A6-ABDA-4C2D-B4AF-FE09C43883E5}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,58 @@
+﻿.sign-box {
+    box-sizing: border-box;
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 85px;
+    height: 34px;
+    border: 1px solid #676767;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+}
+.sign-box__text {
+    width: 46px;
+    height: 17px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #E0E0E0;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+.sign-box-gradient {
+    box-sizing: border-box;
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 116px;
+    height: 34px;
+    /* gradient */
+
+    background: linear-gradient(90deg, #2B59FF 0%, #BB2BFF 100%);
+    border: 1px solid #676767;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}

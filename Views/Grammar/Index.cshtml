@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<div class="chat">
+    <div class="chat_box">
+        <div class="chat__messages">
+            <div class="chat__message chat__message--ai">
+                <span>Assistant</span>
+                <p></p>
+                <p>Hello! I am your assistant who can check your text for errors and correct it</p>
+                <p></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="chat__buttons">
+        <div class="chat__buttons--flex">
+            <button class="chat__button chat__button--rules">Get rules</button>
+            <button class="chat__button chat__button--examples">Get examples</button>
+        </div>
+    </div>
+    <form class="chat__form">
+
+        <input class="chat__input" type="text" placeholder="Введите сообщение...">
+        <button class="chat__send-message-btn">Отправить</button>
+    </form>
+</div>

@@ -1,0 +1,135 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<link rel="stylesheet" href="/css/MyStyleForHomePage.css">
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+
+
+<section class="welcome-header" >
+    <div style="">
+        <div class="row">
+            <div class="col ">
+                <h1 class="welcome-header__title-main text-center ">Your personal AI-teacher</h1>
+
+                <ul class="navbar-nav sign">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item sign__register">
+                            <a class="nav-link text-white " href="/Chat/Index"><img src="~/img/video-circle.png" alt="A description of the image">Let's start</a>
+                        </li>
+                    }
+                    else
+                    {
+
+                        <h5 class="welcome-header__title-description text-center ">Register on our platform to use our services</h5>
+
+                        <li class="nav-item sign__register ">
+                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+                        </li>
+                        <li class="nav-item sign__login">
+
+                            <a class="nav-link text-white sign__link" asp-area="Identity" asp-page="/Account/Login"><img src="~/img/video-circle.png" alt="A description of the image">Already have account?</a>
+                        </li>
+                    }
+                </ul>
+
+
+
+                
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="cards">
+    <div class="d-flex align-items-center justify-content-center" style="height: 18vh;">
+        <div class="text-center">
+            <h1 class="welcome-header__title-main">Your personal AI-teacher</h1>
+            <h5 class="welcome-header__title-description">Register on our platform to use our services</h5>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card  text-black" style="background-color: #BAD7E9;">
+                <div class="text-center ">
+                    <h4 class="card-header">Learn new words</h4>
+                </div>
+                <div class="card-body" style="background-color: #BAD7E9;">
+                    <h5 class="text-black card-title">Service capabilities:</h5>
+                    <ul class="list-group list-group-flush p-0 m-0 ">
+                        <li class="list-group-item" style="background-color: #BAD7E9;">Choosing a topic for learning new words</li>
+                        <li class="list-group-item" style="background-color: #BAD7E9;">Choosing unfamiliar words on a given topic</li>
+                        <li class="list-group-item" style="background-color: #BAD7E9;">Field for an additional question about unfamiliar words</li>
+                    </ul>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Chat/Index">In active development</a>
+                </div>
+            </div>
+        </div>
+
+@*        <div class="col-md-4">
+            <div class="card bg-dark text-white">
+                <div class="text-center ">
+                    <h4 class="card-header">Correct grammar</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Card 2 Title</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark text-white">List Item 1</li>
+                        <li class="list-group-item bg-dark text-white">List Item 2</li>
+                        <li class="list-group-item bg-dark text-white">List Item 3</li>
+                    </ul>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Chat/Index">Chat</a>
+                </div>
+            </div>
+        </div>*@
+
+        <div class="col-md-4">
+            <div class="card " style="background-color: #BAD7E9;">
+                <div class="text-center " style="background-color: #BAD7E9;">
+                    <h4 class="card-header">Correct grammar</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Service capabilities:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item " style="background-color: #BAD7E9;">Submit a text and receive recommendations for correcting the text</li>
+                        <li class="list-group-item " style="background-color: #BAD7E9;">Query about the rules applied to the edited text</li>
+                        <li class="list-group-item" style="background-color: #BAD7E9;">Request for examples of application of the rules</li>
+                    </ul>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Grammar/Index">Try it now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card " style="background-color: #BAD7E9;">
+                <div class="text-center " style="background-color: #BAD7E9;">
+                    <h4 class="card-header">Chat</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Service capabilities:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item " style="background-color: #BAD7E9;">Field for entering a text message</li>
+                        <li class="list-group-item " style="background-color: #BAD7E9;">Reply to a text message</li>
+                        <li class="list-group-item" style="background-color: #BAD7E9;">Choosing a question from the suggested ones</li>
+                    </ul>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Chat/Index" style="pointer-events: none;">Soon</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
