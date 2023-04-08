@@ -24,7 +24,7 @@ namespace Chat.Models
             User =new ClaimsPrincipal(new ClaimsIdentity()); // If user is null, create a new default ClaimsPrincipal object with an empty ClaimsIdentity
             //User = user ?? new ClaimsPrincipal(new ClaimsIdentity()); // If user is null, create a new default ClaimsPrincipal object with an empty ClaimsIdentity
             Id = Guid.NewGuid().ToString(); // Generate a new unique identifier
-            Console.WriteLine("ID UserChats"+ Id);
+           // Console.WriteLine("ID UserChats"+ Id);
         }
 
     }

@@ -35,7 +35,7 @@ namespace OpenAIService
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
             _messages = new List<Message>();
             Id = Guid.NewGuid().ToString(); // Generate a new unique identifier
-            Console.WriteLine("ID OpenAIService" + Id);
+            //Console.WriteLine("ID OpenAIService" + Id);
         }
         public List<string> GetMessages()
         {
@@ -49,7 +49,7 @@ namespace OpenAIService
 
         public void SetAssistantMessage(string systemMessage)
         {
-            var responseMessage = new Message() { Role = "assistant", Content = systemMessage };
+            var responseMessage = new Message() { Role = "user", Content = systemMessage };
             _messages.Add(responseMessage);
         }
 

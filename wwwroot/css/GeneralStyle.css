@@ -1,10 +1,13 @@
+﻿chat-background. {
+    background-color: #BAD7E9;
+}
 .chat {
     background-color: #BAD7E9;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
+    max-width: 100vw;
 }
 .chat_box {
     width: 75%;
@@ -99,8 +102,22 @@
     width: 75%;
     margin: 20px;
 }
+.chat__form--ask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    margin: 0px;
+}
 
 .chat__input {
+    width: 90%;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+.chat__input--ask {
     width: 90%;
     padding: 0.5rem;
     margin-right: 1rem;
@@ -116,6 +133,8 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+
+    margin-left: 0;
 }
 
 .disabled {
@@ -127,8 +146,7 @@
 
 
 .chat__buttons {
-    display: none;
-
+     display: none; 
 }
 .chat__buttons--flex {
     display: flex;
@@ -153,4 +171,86 @@
 
 .chat__button:hover {
     opacity: 0.8;
+}
+.chat__button--ask {
+
+}
+.chat__form--ask {
+}
+.chat__button--clear {
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 50%;
+    background-color: birch;
+    border: none;
+    margin-right: 10px;
+    overflow: hidden;
+    background-color: transparent;
+    background-image: url('/img/Clear1.png');
+    background-size: cover;
+}
+
+.chat__clear-icon {
+    display: block;
+    min-width: 20px;
+    min-height: 20px;
+    background-image: url('path/to/your/clear-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.chat__input--ask {
+    display: block;
+    width: 70%;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+
+/* Media query for large screens */
+@media screen and (min-width: 768px) {
+    .chat__form--ask {
+        display: flex;
+        align-items: center;
+    }
+
+    .chat__input--ask {
+        width: 100%;
+        margin-left: 20px;
+    }
+}
+
+/* Media query for mobile screens */
+@media screen and (max-width: 767px) {
+    .chat__buttons--flex {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .chat__send-message-btn {
+        padding: 6px 4px;
+    }
+    .chat__button {
+        width: calc(50% - 5px);
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .chat__form--ask {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chat__input--ask {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
 }

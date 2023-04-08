@@ -31,7 +31,7 @@ namespace Chat
 
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
                 options.Cookie.IsEssential = true;
             });
 

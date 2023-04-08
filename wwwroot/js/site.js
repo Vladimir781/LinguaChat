@@ -1,6 +1,9 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 // Write your JavaScript code.
+var chatBox = document.querySelector('.chat_box');
+let dotsInterval;
+
 // Функция для создания сообщений на странице
 function createMessageElement(sender, message) {
     const chatMessages = document.querySelector('.chat__messages');
@@ -19,9 +22,16 @@ function createMessageElement(sender, message) {
     return messageElem;
 }
 
+// обработчик нажатия клавиши Enter в поле ввода
+document.querySelector('.chat__input').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // отменяем стандартное поведение формы
+        document.querySelector('.chat__button--correct').click(); // имитируем нажатие на кнопку отправки сообщения
+    }
+});
 
 // обработчик клика на кнопку отправки сообщения
-document.querySelector('.chat__send-message-btn').addEventListener('click', (event) => {
+document.querySelector('.chat__button--correct').addEventListener('click', (event) => {
     event.preventDefault(); // отменяем стандартное поведение формы
 
     // получаем данные формы
@@ -31,6 +41,7 @@ document.querySelector('.chat__send-message-btn').addEventListener('click', (eve
     if (message !== '') {
         // создаем сообщение от пользователя на странице
         createMessageElement('user', message);
+        chatBox.scrollTop = chatBox.scrollHeight;
         // очищаем поле ввода
         messageInput.value = '';
         // блокируем форму и выводим надпись "Ожидание ответа"
@@ -40,7 +51,7 @@ document.querySelector('.chat__send-message-btn').addEventListener('click', (eve
 
         // отправляем данные формы на сервер
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Grammar/SendMessage');
+        xhr.open('POST', '/Grammar/GetCorrects');
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.onload = () => {
@@ -51,6 +62,7 @@ document.querySelector('.chat__send-message-btn').addEventListener('click', (eve
                     console.log('Server response:', response);
                     // выводим ответ сервера на странице в виде сообщения от ИИ
                     createMessageElement('ai', response);
+                    chatBox.scrollTop = chatBox.scrollHeight;
 
                 } catch (error) {
                     console.error('Failed to parse server response:', error);
@@ -75,9 +87,6 @@ document.querySelector('.chat__send-message-btn').addEventListener('click', (eve
 document.querySelector('.chat__button--rules').addEventListener('click', (event) => {
     event.preventDefault(); // отменяем стандартное поведение формы
 
-    // получаем данные формы
-    //const messageInput = document.querySelector('.chat__input');
-    //const message = messageInput.value.trim();
     disableForm();
 
 
@@ -95,6 +104,7 @@ document.querySelector('.chat__button--rules').addEventListener('click', (event)
                 console.log('Server response:', response);
                 // выводим ответ сервера на странице в виде сообщения от ИИ
                 createMessageElement('ai', response);
+                chatBox.scrollTop = chatBox.scrollHeight;
 
             } catch (error) {
                 console.error('Failed to parse server response:', error);
@@ -117,9 +127,6 @@ document.querySelector('.chat__button--rules').addEventListener('click', (event)
 document.querySelector('.chat__button--examples').addEventListener('click', (event) => {
     event.preventDefault(); // отменяем стандартное поведение формы
 
-    // получаем данные формы
-    //const messageInput = document.querySelector('.chat__input');
-    //const message = messageInput.value.trim();
     disableForm();
 
 
@@ -137,7 +144,8 @@ document.querySelector('.chat__button--examples').addEventListener('click', (eve
                 console.log('Server response:', response);
                 // выводим ответ сервера на странице в виде сообщения от ИИ
                 createMessageElement('ai', response);
-
+                var chatBox = document.querySelector('.chat_box');
+                chatBox.scrollTop = chatBox.scrollHeight;
             } catch (error) {
                 console.error('Failed to parse server response:', error);
             }
@@ -154,30 +162,116 @@ document.querySelector('.chat__button--examples').addEventListener('click', (eve
     }
     xhr.send();
 });
+// добавляем обработчик событий для кнопки "Ask question"
+document.querySelector('.chat__button--ask').addEventListener('click', (event) => {
+    event.preventDefault(); // отменяем стандартное поведение формы
 
+    // получаем ссылку на кнопку "Ask question"
+    const questionButton = document.querySelector('.chat__button--ask');
 
-let dotsInterval;
+    // скрываем кнопку "Ask question"
+    questionButton.style.display = 'none';
+
+    // создаем элемент формы
+    const formElement = document.createElement('form');
+    formElement.classList.add('chat__form--ask');
+    formElement.innerHTML = '<input class="chat__input--ask" type="text" placeholder="Write your question...">' +
+        '<button class="chat__button chat__button--ask">Отправить</button>';
+
+    // вставляем форму после кнопки "Ask question"
+    questionButton.parentElement.insertBefore(formElement, questionButton.nextSibling);
+
+    // добавляем обработчик событий для формы
+    formElement.addEventListener('submit', (event) => {
+        event.preventDefault(); // отменяем стандартное поведение формы
+
+        // получаем данные формы
+        const messageInput = formElement.querySelector('.chat__input--ask');
+        const message = messageInput.value.trim();
+
+        if (message !== '') {
+            messageInput.value = '';
+            disableForm();
+            createMessageElement('user', message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            // отправляем данные формы на сервер
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Grammar/SendMessage');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    try {
+                        // обрабатываем ответ сервера
+                        const response = xhr.responseText;
+                        console.log('Server response:', response);
+                        // выводим ответ сервера на странице в виде сообщения от ИИ
+                        createMessageElement('ai', response);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+
+                    } catch (error) {
+                        console.error('Failed to parse server response:', error);
+                    }
+
+                } else {
+                    console.error(xhr.statusText);
+                }
+                // возвращаем прежнее состояние формы
+                enableForm();
+                /*// удаляем форму
+                formElement.remove();
+                // показываем кнопку "Ask question"
+                questionButton.style.display = 'block';*/
+            }
+            xhr.send(JSON.stringify({ message: message }));
+        }
+    });
+});
+
+document.querySelector('.chat__button--clear').addEventListener('click', (event) => {
+    event.preventDefault(); // отменяем станд
+    // обновляем страницу
+    location.reload();
+});
 
 // Функция для блокировки формы и вывода сообщения "Ожидание ответа"
 function disableForm() {
     const messageInput = document.querySelector('.chat__input');
+    const messageInputAsk = document.querySelector('.chat__input--ask');
     const sendMessageBtn = document.querySelector('.chat__send-message-btn');
 
-    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples');
+    // Блокируем поля ввода перед добавлением сообщения ожидания
+    if (messageInputAsk) {
+        messageInputAsk.disabled = true;
+    }
+
+    messageInput.disabled = true;
+
+    // Блокируем кнопку отправки
+    sendMessageBtn.disabled = true;
+    sendMessageBtn.classList.add('disabled');
+
+    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples, .chat__button--correct, .chat__button--ask');
     buttons.forEach(button => {
         button.classList.add('disabled');
         button.disabled = true;
     });
-
-
+    if (messageInputAsk) {
+        // добавляем сообщение ожидания в поле ввода
+        messageInputAsk.value = 'Waiting...';
+        // создаем элемент для анимации точек
+        let dotsElem = document.createElement('span');
+        dotsElem.textContent = '...';
+        // добавляем элемент анимации к сообщению ожидания
+        messageInputAsk.insertAdjacentElement('beforeend', dotsElem);
+    }
     // добавляем сообщение ожидания в поле ввода
     messageInput.value = 'Waiting for a response...';
     // создаем элемент для анимации точек
-    const dotsElem = document.createElement('span');
+    dotsElem = document.createElement('span');
     dotsElem.textContent = '...';
     // добавляем элемент анимации к сообщению ожидания
     messageInput.insertAdjacentElement('beforeend', dotsElem);
-    // запускаем анимацию
 
     let dots = '';
     dotsInterval = setInterval(() => {
@@ -186,22 +280,21 @@ function disableForm() {
         } else {
             dots = '';
         }
+        if (messageInputAsk) {
+            messageInputAsk.value = `Waiting${dots}`;
+        }
         messageInput.value = `Waiting for a response${dots}`;
     }, 500);
-
-    // блокируем поле ввода и кнопку отправки
-    messageInput.disabled = true;
-    sendMessageBtn.disabled = true;
-    sendMessageBtn.classList.add('disabled');
 }
+
 
 // Функция для разблокировки формы и скрытия сообщения "Ожидание ответа"
 function enableForm() {
     const messageInput = document.querySelector('.chat__input');
     const sendMessageBtn = document.querySelector('.chat__send-message-btn');
+    const messageInputAsk = document.querySelector('.chat__input--ask');
 
-
-    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples');
+    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples, .chat__button--correct, .chat__button--ask');
     buttons.forEach(button => {
         button.classList.remove('disabled');
         button.disabled = false;
@@ -209,14 +302,21 @@ function enableForm() {
 
 
     // удаляем сообщение ожидания и элемент анимации
+    if (messageInputAsk) {
+        messageInputAsk.value = '';
+    }
     messageInput.value = '';
     messageInput.removeChild(messageInput.lastChild);
     // останавливаем анимацию
     clearInterval(dotsInterval);
 
     // разблокируем поле ввода и кнопку отправки
+    if (messageInputAsk) {
+        messageInputAsk.disabled = false;
+    }
     messageInput.disabled = false;
     sendMessageBtn.disabled = false;
     sendMessageBtn.classList.remove('disabled');
 }
+
 
