@@ -266,7 +266,7 @@ function disableForm() {
         messageInputAsk.insertAdjacentElement('beforeend', dotsElem);
     }
     // добавляем сообщение ожидания в поле ввода
-    messageInput.value = 'Waiting for a response...';
+    messageInput.value = 'Correcting your text...';
     // создаем элемент для анимации точек
     dotsElem = document.createElement('span');
     dotsElem.textContent = '...';
@@ -283,7 +283,7 @@ function disableForm() {
         if (messageInputAsk) {
             messageInputAsk.value = `Waiting${dots}`;
         }
-        messageInput.value = `Waiting for a response${dots}`;
+        messageInput.value = `Correcting your text${dots}`;
     }, 500);
 }
 

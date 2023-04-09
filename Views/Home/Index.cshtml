@@ -7,8 +7,43 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>*@
+<style>
+    .user-message {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        border-radius: 20px 20px 0 20px;
+        background-color: #e9e9e9;
+        margin-bottom: 10px;
+    }
 
+    .ai-message {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        border-radius: 20px 20px 20px 0;
+        background-color: #c8e1ff;
+        margin-bottom: 10px;
+    }
 
+    .message-content {
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 80%;
+        word-break: break-word;
+    }
+
+        .message-content::before {
+            content: attr(data-author);
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+    .card {
+        height:100%;
+    }
+</style>
 
 <section class="welcome-header" >
     <div style="">
@@ -58,75 +93,123 @@
 
 
     <div class="row">
-
         <div class="col-md-4">
-            <div class="card  text-black" style="background-color: #BAD7E9;">
-                <div class="text-center ">
+            <div class="card bg-dark text-white">
+                <div class="text-center">
                     <h4 class="card-header">Learn new words</h4>
                 </div>
-                <div class="card-body" style="background-color: #BAD7E9;">
-                    <h5 class="text-black card-title">Service capabilities:</h5>
-                    <ul class="list-group list-group-flush p-0 m-0 ">
-                        <li class="list-group-item" style="background-color: #BAD7E9;">Choosing a topic for learning new words</li>
-                        <li class="list-group-item" style="background-color: #BAD7E9;">Choosing unfamiliar words on a given topic</li>
-                        <li class="list-group-item" style="background-color: #BAD7E9;">Field for an additional question about unfamiliar words</li>
+                <div class="card-body">
+                    <h5 class="text-white card-title">Service capabilities:</h5>
+                    <ul class="list-group list-group-flush p-0 m-0">
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User proposes the lesson topic for learning new words
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI provides a list of key words related to the topic
+                            </div>
+                        </li>
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User can ask for definitions of unfamiliar words
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI provides definitions and examples of word usage
+                            </div>
+                        </li>
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User can ask questions related to the lesson topic and receive answers from AI
+                            </div>
+                        </li>
                     </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Chat/Index">In active development</a>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Chat/Index">In active development</a>
                 </div>
             </div>
         </div>
 
-@*        <div class="col-md-4">
+
+
+
+        <div class="col-md-4">
             <div class="card bg-dark text-white">
-                <div class="text-center ">
-                    <h4 class="card-header">Correct grammar</h4>
+                <div class="text-center">
+                    <h4 class="card-header">Grammar check</h4>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Card 2 Title</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-dark text-white">List Item 1</li>
-                        <li class="list-group-item bg-dark text-white">List Item 2</li>
-                        <li class="list-group-item bg-dark text-white">List Item 3</li>
+                    <h5 class="text-white card-title">Service capabilities:</h5>
+                    <ul class="list-group list-group-flush p-0 m-0">
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User can submit their text for grammar check
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI checks the grammar and provides recommendations for correcting errors
+                            </div>
+                        </li>
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User can ask about the grammar rules applied to the corrected text
+                            </div>
+                        </li>
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User can ask for examples of how the rules are applied in sentences
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI generates and sends examples with explanations.
+                            </div>
+                        </li>
                     </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Chat/Index">Chat</a>
-                </div>
-            </div>
-        </div>*@
-
-        <div class="col-md-4">
-            <div class="card " style="background-color: #BAD7E9;">
-                <div class="text-center " style="background-color: #BAD7E9;">
-                    <h4 class="card-header">Correct grammar</h4>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Service capabilities:</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item " style="background-color: #BAD7E9;">Submit a text and receive recommendations for correcting the text</li>
-                        <li class="list-group-item " style="background-color: #BAD7E9;">Query about the rules applied to the edited text</li>
-                        <li class="list-group-item" style="background-color: #BAD7E9;">Request for examples of application of the rules</li>
-                    </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Grammar/Index">Try it now</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card " style="background-color: #BAD7E9;">
-                <div class="text-center " style="background-color: #BAD7E9;">
-                    <h4 class="card-header">Chat</h4>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Service capabilities:</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item " style="background-color: #BAD7E9;">Field for entering a text message</li>
-                        <li class="list-group-item " style="background-color: #BAD7E9;">Reply to a text message</li>
-                        <li class="list-group-item" style="background-color: #BAD7E9;">Choosing a question from the suggested ones</li>
-                    </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white " href="/Chat/Index" style="pointer-events: none;">Soon</a>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Grammar/Index">Try it now</a>
                 </div>
             </div>
         </div>
 
+
+
+
+        <div class="col-md-4">
+            <div class="card bg-dark text-white">
+                <div class="text-center">
+                    <h4 class="card-header">Chat for conversation</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="text-white card-title">Service capabilities:</h5>
+                    <ul class="list-group list-group-flush p-0 m-0">
+                        <li class="list-group-item user-message">
+                            <div class="message-content">
+                                User sends a text message to AI
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI checks the user's text message and responds, taking into account grammar and providing recommendations for correcting errors.
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI analyzes the context of the user's text message to better understand the user's intent and tailor its response accordingly.
+                            </div>
+                        </li>
+                        <li class="list-group-item ai-message">
+                            <div class="message-content">
+                                AI checks the user's text message and responds, taking into account grammar and providing recommendations for correcting errors.
+                            </div>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Chat/Index" style="pointer-events: none;">Soon</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 </section>

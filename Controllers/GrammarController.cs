@@ -27,11 +27,12 @@ namespace Chat.Controllers
         public async Task<ActionResult> SendMessage([FromBody] MessageModel messageModel)
         {
             string message = messageModel.message;
-            Console.WriteLine("User message {}:" + message);
+            Console.WriteLine("Method called SendMessage.User message:" + message);
             var userChats = GetOrSetUserChatsFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("Answer my question using the context of our correspondence. My question is:" + message+ "You must separate your answer in two languages.First in English, and then in Russian."));
+            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("Answer my question using the context of our correspondence. My question is:'" + message+ "'." +
+                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
 
             // Return the response to the client
             return Content(response);
@@ -40,12 +41,17 @@ namespace Chat.Controllers
         //[Authorize]
         public async Task<ActionResult> GetCorrects([FromBody] MessageModel messageModel)
         {
+            _cache.Remove("UserChats" + GetOrSetUserIdFromCookie());
+
+            GetOrSetUserChatsFromCache(GetOrSetUserIdFromCookie());
+
             string message = messageModel.message;
-            Console.WriteLine("User message {}: GetCorrects => "+ message);
+            Console.WriteLine("Method called GetCorrects.User message:" + message);
             var userChats = GetOrSetUserChatsFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("Correct this text:'" + message+ "'.You must separate your answer in two languages.First in English, and then in Russian."));
+            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("Correct this text:'" + message+ "'." +
+                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
 
             // Return the response to the client
             return Content(response);
@@ -53,10 +59,12 @@ namespace Chat.Controllers
         [HttpPost]
         public async Task<ActionResult> GetRules([FromBody] MessageModel messageModel)
         {
+            Console.WriteLine("Method called GetRules.");
             var userChats = GetOrSetUserChatsFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("What rules did you apply to the corrected text. You must separate your answer in two languages.First in English, and then in Russian."));
+            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("What rules did you apply to the corrected text. Also give recommendations and how it was possible to write the text differently and why." +
+                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
 
             // Return the response to the client
             return Content(response);
@@ -64,10 +72,12 @@ namespace Chat.Controllers
         [HttpPost]
         public async Task<ActionResult> GetExamples([FromBody] MessageModel messageModel)
         {
+            Console.WriteLine("Method called GetExamples.");
             var userChats = GetOrSetUserChatsFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("Give a few sentences using the rules you applied. You must separate your answer in two languages.First in English, and then in Russian."));
+            string response = ConvertMarkdownToHtml(await userChats.OpenAIService.GetResponseAsync("Give a few sentences using the rules you applied. " +
+                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
 
             // Return the response to the client
             return Content(response);
@@ -79,12 +89,10 @@ namespace Chat.Controllers
             {
                 // Создаем новый объект UserChats, если его нет в кеше
                 var userChats = new UserChats();
-                userChats.OpenAIService.SetAssistantMessage("There are some very important rules that you must follow:" +
-                    "1. You are an assistant to check the text for correctness.");
+                userChats.OpenAIService.SetAssistantMessage("You are the assistant of the LinguaChat site, which is only for correcting the text and giving clarifications about the corrected text");
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30); // Устанавливаем время жизни кеша
-                Console.WriteLine("Created user chat and set rules");
+                Console.WriteLine("Created user chat and set rule");
                 return userChats;
-
             });
         }
         private string GetOrSetUserIdFromCookie()
@@ -95,8 +103,7 @@ namespace Chat.Controllers
                 // Получаем значение куки
                 var cookieValue = Request.Cookies[".AspNetCore.Session"];
                 //Console.WriteLine($"Cookie value: {cookieValue}");
-                Console.WriteLine($"Used cookie value:");
-                Console.WriteLine();
+                Console.WriteLine($"Used cookie value.");
                 // Возвращаем идентификатор сессии из куки
                 return cookieValue;
             }

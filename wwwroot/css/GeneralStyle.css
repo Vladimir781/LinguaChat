@@ -235,13 +235,16 @@
         padding: 6px 4px;
     }
     .chat__button {
-        width: calc(50% - 5px);
-        margin-left: 0;
+        width: calc(48% - 5px);
+        margin-left: 5px;
+        margin-right: 3px;
+        margin-left: 3px;
         margin-bottom: 10px;
     }
 
     .chat__form--ask {
         width: 100%;
+        padding:0px 25px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -249,7 +252,6 @@
 
     .chat__input--ask {
         width: 100%;
-        margin-right: 0;
         margin-bottom: 10px;
     }
 
