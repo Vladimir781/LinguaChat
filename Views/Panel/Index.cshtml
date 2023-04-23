@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">@User.Identity?.Name!</h5>
+                    <hr class="bg-primary mb-4">
+                    <p class="card-text mb-2">Total used tokens: <span id="total-used-tokens" class="font-weight-bold"></span></p>
+                    <hr class="bg-primary my-4">
+                    <p class="card-text mb-2">Cost: <span id="cost" class="font-weight-bold"></span></p>
+                    <hr class="bg-primary my-4">
+                    <p class="card-text mb-2">Credit granted: <span id="CreditGranted" class="font-weight-bold"></span></p>
+                    <hr class="bg-primary mt-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('total-used-tokens').textContent = '@ViewData["TotalUsedTokens"]';
+    document.getElementById('cost').textContent = '@ViewData["Cost"]';
+    document.getElementById('CreditGranted').textContent = '@ViewData["CreditGranted"]';
+    const username = '@User.Identity?.Name!';
+    const atIndex = username.indexOf('@@');
+    const displayName = atIndex === -1 ? username : username.substring(0, atIndex);
+    document.querySelector('.card-title').textContent = displayName;
+</script>

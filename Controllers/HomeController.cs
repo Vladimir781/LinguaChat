@@ -15,6 +15,7 @@ namespace Chat.Controllers
 
         public IActionResult Index()
         {
+            Trace.WriteLine("The user has visited the page");
             return View();
         }
 

@@ -1,14 +1,8 @@
 ﻿using Chat.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System.Net.Http;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using OpenAIService;
-using Chat.Models;
-
+using System.Diagnostics;
 namespace Chat
 {
 
@@ -28,7 +22,6 @@ namespace Chat
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(15);
@@ -40,6 +33,7 @@ namespace Chat
             Console.OutputEncoding = Encoding.UTF8;
 
             var app = builder.Build();
+            Trace.TraceInformation("Starting app");
 
 
             // Configure the HTTP request pipeline.

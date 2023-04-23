@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using System.Net.Http.Json;
+﻿using Microsoft.EntityFrameworkCore;
 using OpenAIService;
 using System.Security.Claims;
+using Chat.Data;
 
 namespace Chat.Models
 {
@@ -12,24 +10,53 @@ namespace Chat.Models
     {
         public string message { get; set; }
     }
-
-    public class UserChats
+    public class AspNetUserCredit
     {
-        public IOpenAIService OpenAIService { get; private set; }
-        public ClaimsPrincipal User { get; private set; }
-        public string Id { get; private set; }
-        public UserChats()
+        public int? Id { get; set; }
+        public string? UserId { get; set; }
+        public int? TotalUsedTokens { get; set; }
+        public int? CreditGranted { get; set; }
+    }
+    public class UserChat
+    {
+        public IOpenAIService? OpenAIService { get; private set; }
+        public ClaimsPrincipal? User { get; private set; }
+        public AspNetUserCredit? aspNetUserCredit { get; set; } = null;
+        public Task<UserChat> InitAsync(ClaimsPrincipal user)
         {
             OpenAIService = new OpenAIService.OpenAIService("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", "https://api.openai.com/v1/chat/completions", "gpt-3.5-turbo");
-            User =new ClaimsPrincipal(new ClaimsIdentity()); // If user is null, create a new default ClaimsPrincipal object with an empty ClaimsIdentity
-            //User = user ?? new ClaimsPrincipal(new ClaimsIdentity()); // If user is null, create a new default ClaimsPrincipal object with an empty ClaimsIdentity
-            Id = Guid.NewGuid().ToString(); // Generate a new unique identifier
-           // Console.WriteLine("ID UserChats"+ Id);
+            User = user;
+            OpenAIService.ResponseReceived += OnResponseReceived;
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-Chat-61f45cb0-34f4-4a5f-a897-fa595161cb00;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options;
+            var dbContext = new ApplicationDbContext(options);
+            aspNetUserCredit = dbContext.GetAspNetUserCredit(user, dbContext).Result;
+            return Task.FromResult(this);
+        }
+        public void OnResponseReceived(object sender, ResponseEventArgs e)
+        {
+            aspNetUserCredit.TotalUsedTokens += e.TotalTokens;
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-Chat-61f45cb0-34f4-4a5f-a897-fa595161cb00;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options;
+            var dbContext = new ApplicationDbContext(options);
+            dbContext.SaveAspNetUserCredit(aspNetUserCredit, dbContext, e.PromptTokens + e.CompletionTokens);
+
+            // some logic to use PromptTokens, CompletionTokens, and TotalTokens
+            Console.WriteLine($"PromptTokens: {e.PromptTokens}, CompletionTokens: {e.CompletionTokens}, TotalTokens: {e.TotalTokens}");
+            Console.WriteLine("{0,-25} {1}", "Property", "Value");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("{0,-25} {1}", "CreditGranted", aspNetUserCredit.CreditGranted);
+            Console.WriteLine("{0,-25} {1}", "TotalUsedTokens", aspNetUserCredit.TotalUsedTokens);
         }
 
+
+
+
     }
-
-
 
 
 

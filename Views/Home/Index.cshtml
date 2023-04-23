@@ -40,9 +40,6 @@
             margin-bottom: 5px;
         }
 
-    .card {
-        height:100%;
-    }
 </style>
 
 <section class="welcome-header" >
@@ -93,7 +90,7 @@
 
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 my-4">
             <div class="card bg-dark text-white">
                 <div class="text-center">
                     <h4 class="card-header">Learn new words</h4>
@@ -127,7 +124,7 @@
                             </div>
                         </li>
                     </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Chat/Index">In active development</a>
+                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="">In active development</a>
                 </div>
             </div>
         </div>
@@ -135,7 +132,7 @@
 
 
 
-        <div class="col-md-4">
+        <div class="col-md-4 my-4">
             <div class="card bg-dark text-white">
                 <div class="text-center">
                     <h4 class="card-header">Grammar check</h4>
@@ -169,7 +166,15 @@
                             </div>
                         </li>
                     </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Grammar/Index">Try it now</a>
+                     @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Grammar/Index">Try it now</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Register">Sign Up/Log In</a>
+                    }
+
                 </div>
             </div>
         </div>
@@ -177,7 +182,7 @@
 
 
 
-        <div class="col-md-4">
+        <div class="col-md-4 my-4">
             <div class="card bg-dark text-white">
                 <div class="text-center">
                     <h4 class="card-header">Chat for conversation</h4>

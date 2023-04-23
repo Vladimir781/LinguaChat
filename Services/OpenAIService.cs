@@ -14,7 +14,7 @@ namespace OpenAIService
         void SetAssistantMessage(string systemMessage);
         List<string> GetMessages();
         void ClearMessages();
-
+        public event EventHandler<ResponseEventArgs> ResponseReceived;
     }
 
     public class OpenAIService : IOpenAIService
@@ -24,7 +24,8 @@ namespace OpenAIService
         private readonly string _endpoint;
         private readonly string _modelId;
         private readonly List<Message> _messages;
-        private readonly UserManager<IdentityUser> _userManager;
+        public event EventHandler<ResponseEventArgs> ResponseReceived;
+
         public string Id { get; private set; }
         public OpenAIService(string apiKey, string endpoint, string modelId)
         {
@@ -34,8 +35,6 @@ namespace OpenAIService
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
             _messages = new List<Message>();
-            Id = Guid.NewGuid().ToString(); // Generate a new unique identifier
-            //Console.WriteLine("ID OpenAIService" + Id);
         }
         public List<string> GetMessages()
         {
@@ -70,6 +69,13 @@ namespace OpenAIService
                 return "Error: " + response.StatusCode;
             }
             var responseData = await response.Content.ReadFromJsonAsync<ResponseData>();
+
+            var usage = responseData?.Usage ?? new Usage();
+
+            // some logic to get response from API
+            var responseEventArgs = new ResponseEventArgs(usage.PromptTokens, usage.CompletionTokens, usage.TotalTokens);
+            ResponseReceived?.Invoke(this, responseEventArgs);
+
 
             var choices = responseData?.Choices ?? new List<Choice>();
             if (choices.Count == 0)
