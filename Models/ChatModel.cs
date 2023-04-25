@@ -29,7 +29,7 @@ namespace Chat.Models
             OpenAIService.ResponseReceived += OnResponseReceived;
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-Chat-61f45cb0-34f4-4a5f-a897-fa595161cb00;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .UseSqlServer("Server=tcp:linguachat.database.windows.net,1433;Initial Catalog=linguachat;Persist Security Info=False;User ID=Vladimir;Password=123456987tT.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
                 .Options;
             var dbContext = new ApplicationDbContext(options);
             aspNetUserCredit = dbContext.GetAspNetUserCredit(user, dbContext).Result;
@@ -40,7 +40,7 @@ namespace Chat.Models
             aspNetUserCredit.TotalUsedTokens += e.TotalTokens;
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-Chat-61f45cb0-34f4-4a5f-a897-fa595161cb00;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .UseSqlServer("Server=tcp:linguachat.database.windows.net,1433;Initial Catalog=linguachat;Persist Security Info=False;User ID=Vladimir;Password=123456987tT.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
                 .Options;
             var dbContext = new ApplicationDbContext(options);
             dbContext.SaveAspNetUserCredit(aspNetUserCredit, dbContext, e.PromptTokens + e.CompletionTokens);

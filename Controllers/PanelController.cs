@@ -3,23 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Chat.Data;
 using Chat.Models;
+using System.Data.Entity;
 
 namespace Chat.Controllers
 {
     public class PanelController : Controller
     {
+        private ApplicationDbContext _dbContext;
         // GET: PanelController
+        public PanelController(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public ActionResult Index()
         {
             var currentUser = HttpContext.User;
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-Chat-61f45cb0-34f4-4a5f-a897-fa595161cb00;Trusted_Connection=True;MultipleActiveResultSets=true")
-                .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var aspNetUserCredit = dbContext.GetAspNetUserCredit(currentUser, dbContext).Result;
+
+            var aspNetUserCredit = _dbContext.GetAspNetUserCredit(currentUser, _dbContext).Result;
             ViewData["TotalUsedTokens"] = aspNetUserCredit.TotalUsedTokens;
-            ViewData["CreditGranted"] = aspNetUserCredit.CreditGranted;
-            ViewData["Cost"] = (aspNetUserCredit.TotalUsedTokens*0.002)/1000 + "$";
+            ViewData["CreditGranted"] = "infinite";  //aspNetUserCredit.CreditGranted
+            ViewData["Cost"] = (aspNetUserCredit.TotalUsedTokens/1000)*0.002 + "$";
             return View();
         }
 

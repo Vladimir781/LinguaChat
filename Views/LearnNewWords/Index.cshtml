@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="chat-background">
+    <div class="chat">
+        <div class="chat_box">
+            <div class="chat__messages">
+                <div class="chat__message chat__message--ai">
+                    <span>Assistant</span>
+                    <p></p>
+                    <p>Hello! I am your assistant who can check your text for errors and correct it</p>
+                    <p></p>
+                </div>
+
+            </div>
+        </div>
+
+        @*            <button class="chat__button chat__button--clear">Clear chat</button>*@
+
+
+        <div class="chat__buttons">
+            <div class="chat__buttons--flex">
+                <button class="chat__button chat__button--rules ">Get rules</button>
+                <button class="chat__button chat__button--examples ">Get examples</button>
+                <button class="chat__button chat__button--ask ">Ask question</button>
+            </div>
+        </div>
+
+        <form class="chat__form">
+            <button class="chat__button--clear">
+                <span class="chat__clear-icon" aria-hidden="true"></span>
+            </button>
+            <input class="chat__input" type="text" placeholder="Write the text you want to correct here">
+            <button class="chat__send-message-btn chat__button--correct">Correct</button>
+        </form>
+    </div>
+</div>

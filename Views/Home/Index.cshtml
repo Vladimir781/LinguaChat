@@ -124,7 +124,14 @@
                             </div>
                         </li>
                     </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="">In active development</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/LearnNewWords/Index">Try it now</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Register">Sign Up/Log In</a>
+                    }
                 </div>
             </div>
         </div>
@@ -192,22 +199,22 @@
                     <ul class="list-group list-group-flush p-0 m-0">
                         <li class="list-group-item user-message">
                             <div class="message-content">
-                                User sends a text message to AI
+                                The user initiates communication with the AI by sending a text message
                             </div>
                         </li>
                         <li class="list-group-item ai-message">
                             <div class="message-content">
-                                AI checks the user's text message and responds, taking into account grammar and providing recommendations for correcting errors.
+                                AI checks the user's text message and responds, taking into account grammar and providing recommendations 
                             </div>
                         </li>
                         <li class="list-group-item ai-message">
                             <div class="message-content">
-                                AI analyzes the context of the user's text message to better understand the user's intent and tailor its response accordingly.
+                                AI analyzes the context of the user's text message to better understand the user's intent and tailor its response accordingly
                             </div>
                         </li>
                         <li class="list-group-item ai-message">
                             <div class="message-content">
-                                AI checks the user's text message and responds, taking into account grammar and providing recommendations for correcting errors.
+                                AI checks the user's text message and responds, taking into account grammar and providing recommendations for correcting errors
                             </div>
                         </li>
                     </ul>

@@ -1,16 +1,13 @@
 ﻿using Chat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using Markdig;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
 
 namespace Chat.Controllers
 {
-    public class GrammarController : BaseController
+    public class LearnNewWordsController : BaseController
     {
-
-        public GrammarController(IMemoryCache memoryCache)
+        public LearnNewWordsController(IMemoryCache memoryCache)
         {
             _cache = memoryCache;
         }
@@ -33,7 +30,7 @@ namespace Chat.Controllers
             var userChat = GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await userChat.OpenAIService.GetResponseAsync("Answer my question using the context of our correspondence. My question is:'" + message+ "'." +
+            string response = ConvertMarkdownToHtml(await userChat.OpenAIService.GetResponseAsync("Answer my question using the context of our correspondence. My question is:'" + message + "'." +
                 "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
 
             // Return the response to the client
@@ -51,7 +48,7 @@ namespace Chat.Controllers
             var UserChat = GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Correct this text:'" + message+ "'." +
+            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Correct this text:'" + message + "'." +
                 "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
 
             // Return the response to the client
@@ -85,14 +82,5 @@ namespace Chat.Controllers
         }
 
 
-
     }
-
-
-
-
-
-
-
-
 }
