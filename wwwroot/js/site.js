@@ -26,32 +26,133 @@ function createMessageElement(sender, message) {
 document.querySelector('.chat__input').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         event.preventDefault(); // отменяем стандартное поведение формы
-        document.querySelector('.chat__button--correct').click(); // имитируем нажатие на кнопку отправки сообщения
+        document.querySelector('.chat__send-message-btn').click(); // имитируем нажатие на кнопку отправки сообщения
     }
 });
 
-// обработчик клика на кнопку отправки сообщения
-document.querySelector('.chat__button--correct').addEventListener('click', (event) => {
-    event.preventDefault(); // отменяем стандартное поведение формы
+const correctButton = document.querySelector('.chat__button--correct');
+if (correctButton) {
+    document.querySelector('.chat__button--correct').addEventListener('click', (event) => {
+        event.preventDefault(); // отменяем стандартное поведение формы
 
-    // получаем данные формы
-    const messageInput = document.querySelector('.chat__input');
-    const message = messageInput.value.trim();
+        // получаем данные формы
+        const messageInput = document.querySelector('.chat__input');
+        const message = messageInput.value.trim();
 
-    if (message !== '') {
-        // создаем сообщение от пользователя на странице
-        createMessageElement('user', message);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        // очищаем поле ввода
-        messageInput.value = '';
-        // блокируем форму и выводим надпись "Ожидание ответа"
+        if (message !== '') {
+            // создаем сообщение от пользователя на странице
+            createMessageElement('user', message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            // очищаем поле ввода
+            messageInput.value = '';
+            // блокируем форму и выводим надпись "Ожидание ответа"
+            disableForm();
+
+
+
+            // отправляем данные формы на сервер
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Grammar/GetCorrects');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    try {
+                        // обрабатываем ответ сервера
+                        const response = xhr.responseText;
+                        console.log('Server response:', response);
+                        // выводим ответ сервера на странице в виде сообщения от ИИ
+                        createMessageElement('ai', response);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+
+                    } catch (error) {
+                        console.error('Failed to parse server response:', error);
+                    }
+
+                } else {
+                    console.error(xhr.statusText);
+                }
+                // возвращаем прежнее состояние формы
+                // отображаем кнопки
+                document.querySelector('.chat__buttons').style.display = 'block';
+                enableForm();
+                // скрываем кнопки
+                //document.querySelector('.chat__buttons').style.display = 'none';
+            };
+            xhr.onerror = () => console.error(xhr.statusText);
+            xhr.send(JSON.stringify({ message: message }));
+        }
+    });
+}
+
+const topicButton = document.querySelector('.chat__button--topic');
+if (topicButton) {
+    document.querySelector('.chat__button--topic').addEventListener('click', (event) => {
+        event.preventDefault(); // отменяем стандартное поведение формы
+
+        // получаем данные формы
+        const messageInput = document.querySelector('.chat__input');
+        const message = messageInput.value.trim();
+
+        if (message !== '') {
+            // создаем сообщение от пользователя на странице
+            createMessageElement('user', message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            // очищаем поле ввода
+            messageInput.value = '';
+            // блокируем форму и выводим надпись "Ожидание ответа"
+            disableForm();
+
+
+
+            // отправляем данные формы на сервер
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/LearnNewWords/SelectTopic');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    try {
+                        // обрабатываем ответ сервера
+                        const response = xhr.responseText;
+                        console.log('Server response:', response);
+                        // выводим ответ сервера на странице в виде сообщения от ИИ
+                        createMessageElement('ai', response);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+
+                    } catch (error) {
+                        console.error('Failed to parse server response:', error);
+                    }
+
+                } else {
+                    console.error(xhr.statusText);
+                }
+                // возвращаем прежнее состояние формы
+                // отображаем кнопки
+                document.querySelector('.chat__buttons').style.display = 'block';
+                enableForm();
+                // скрываем кнопки
+                //document.querySelector('.chat__buttons').style.display = 'none';
+            };
+            xhr.onerror = () => console.error(xhr.statusText);
+            xhr.send(JSON.stringify({ message: message }));
+        }
+    });
+}
+
+const rulesButton = document.querySelector('.chat__button--rules');
+if (rulesButton) {
+    // обработчик клика на кнопку отправки сообщения
+    document.querySelector(rulesButton).addEventListener('click', (event) => {
+        event.preventDefault(); // отменяем стандартное поведение формы
+
         disableForm();
 
 
 
         // отправляем данные формы на сервер
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Grammar/GetCorrects');
+        xhr.open('POST', '/Grammar/GetRules');
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.onload = () => {
@@ -77,156 +178,121 @@ document.querySelector('.chat__button--correct').addEventListener('click', (even
             enableForm();
             // скрываем кнопки
             //document.querySelector('.chat__buttons').style.display = 'none';
-        };
-        xhr.onerror = () => console.error(xhr.statusText);
-        xhr.send(JSON.stringify({ message: message }));
-    }
-});
-
-// обработчик клика на кнопку отправки сообщения
-document.querySelector('.chat__button--rules').addEventListener('click', (event) => {
-    event.preventDefault(); // отменяем стандартное поведение формы
-
-    disableForm();
-
-
-
-    // отправляем данные формы на сервер
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/Grammar/GetRules');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            try {
-                // обрабатываем ответ сервера
-                const response = xhr.responseText;
-                console.log('Server response:', response);
-                // выводим ответ сервера на странице в виде сообщения от ИИ
-                createMessageElement('ai', response);
-                chatBox.scrollTop = chatBox.scrollHeight;
-
-            } catch (error) {
-                console.error('Failed to parse server response:', error);
-            }
-
-        } else {
-            console.error(xhr.statusText);
         }
-        // возвращаем прежнее состояние формы
-        // отображаем кнопки
-        document.querySelector('.chat__buttons').style.display = 'block';
-        enableForm();
-        // скрываем кнопки
-        //document.querySelector('.chat__buttons').style.display = 'none';
-    }
-    xhr.send();
-});
+        xhr.send();
+    });
+}
 
-// обработчик клика на кнопку отправки сообщения
-document.querySelector('.chat__button--examples').addEventListener('click', (event) => {
-    event.preventDefault(); // отменяем стандартное поведение формы
-
-    disableForm();
-
-
-
-    // отправляем данные формы на сервер
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/Grammar/GetExamples');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            try {
-                // обрабатываем ответ сервера
-                const response = xhr.responseText;
-                console.log('Server response:', response);
-                // выводим ответ сервера на странице в виде сообщения от ИИ
-                createMessageElement('ai', response);
-                var chatBox = document.querySelector('.chat_box');
-                chatBox.scrollTop = chatBox.scrollHeight;
-            } catch (error) {
-                console.error('Failed to parse server response:', error);
-            }
-
-        } else {
-            console.error(xhr.statusText);
-        }
-        // возвращаем прежнее состояние формы
-        // отображаем кнопки
-        document.querySelector('.chat__buttons').style.display = 'block';
-        enableForm();
-        // скрываем кнопки
-        //document.querySelector('.chat__buttons').style.display = 'none';
-    }
-    xhr.send();
-});
-// добавляем обработчик событий для кнопки "Ask question"
-document.querySelector('.chat__button--ask').addEventListener('click', (event) => {
-    event.preventDefault(); // отменяем стандартное поведение формы
-
-    // получаем ссылку на кнопку "Ask question"
-    const questionButton = document.querySelector('.chat__button--ask');
-
-    // скрываем кнопку "Ask question"
-    questionButton.style.display = 'none';
-
-    // создаем элемент формы
-    const formElement = document.createElement('form');
-    formElement.classList.add('chat__form--ask');
-    formElement.innerHTML = '<input class="chat__input--ask" type="text" placeholder="Write your question...">' +
-        '<button class="chat__button chat__button--ask">Отправить</button>';
-
-    // вставляем форму после кнопки "Ask question"
-    questionButton.parentElement.insertBefore(formElement, questionButton.nextSibling);
-
-    // добавляем обработчик событий для формы
-    formElement.addEventListener('submit', (event) => {
+const examplesButton = document.querySelector('.chat__button--examples');
+if (examplesButton) {
+    // обработчик клика на кнопку отправки сообщения
+    document.querySelector(examplesButton).addEventListener('click', (event) => {
         event.preventDefault(); // отменяем стандартное поведение формы
 
-        // получаем данные формы
-        const messageInput = formElement.querySelector('.chat__input--ask');
-        const message = messageInput.value.trim();
+        disableForm();
 
-        if (message !== '') {
-            messageInput.value = '';
-            disableForm();
-            createMessageElement('user', message);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            // отправляем данные формы на сервер
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Grammar/SendMessage');
-            xhr.setRequestHeader('Content-Type', 'application/json');
 
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    try {
-                        // обрабатываем ответ сервера
-                        const response = xhr.responseText;
-                        console.log('Server response:', response);
-                        // выводим ответ сервера на странице в виде сообщения от ИИ
-                        createMessageElement('ai', response);
-                        chatBox.scrollTop = chatBox.scrollHeight;
 
-                    } catch (error) {
-                        console.error('Failed to parse server response:', error);
-                    }
+        // отправляем данные формы на сервер
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Grammar/GetExamples');
+        xhr.setRequestHeader('Content-Type', 'application/json');
 
-                } else {
-                    console.error(xhr.statusText);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                try {
+                    // обрабатываем ответ сервера
+                    const response = xhr.responseText;
+                    console.log('Server response:', response);
+                    // выводим ответ сервера на странице в виде сообщения от ИИ
+                    createMessageElement('ai', response);
+                    var chatBox = document.querySelector('.chat_box');
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                } catch (error) {
+                    console.error('Failed to parse server response:', error);
                 }
-                // возвращаем прежнее состояние формы
-                enableForm();
-                /*// удаляем форму
-                formElement.remove();
-                // показываем кнопку "Ask question"
-                questionButton.style.display = 'block';*/
+
+            } else {
+                console.error(xhr.statusText);
             }
-            xhr.send(JSON.stringify({ message: message }));
+            // возвращаем прежнее состояние формы
+            // отображаем кнопки
+            document.querySelector('.chat__buttons').style.display = 'block';
+            enableForm();
+            // скрываем кнопки
+            //document.querySelector('.chat__buttons').style.display = 'none';
         }
+        xhr.send();
     });
-});
+}
+const askButton = document.querySelector('.chat__button--ask');
+if (askButton) {
+    // добавляем обработчик событий для кнопки "Ask question"
+    document.querySelector(askButton).addEventListener('click', (event) => {
+        event.preventDefault(); // отменяем стандартное поведение формы
+
+        // получаем ссылку на кнопку "Ask question"
+        const questionButton = document.querySelector('.chat__button--ask');
+
+        // скрываем кнопку "Ask question"
+        questionButton.style.display = 'none';
+
+        // создаем элемент формы
+        const formElement = document.createElement('form');
+        formElement.classList.add('chat__form--ask');
+        formElement.innerHTML = '<input class="chat__input--ask" type="text" placeholder="Write your question...">' +
+            '<button class="chat__button chat__button--ask">Отправить</button>';
+
+        // вставляем форму после кнопки "Ask question"
+        questionButton.parentElement.insertBefore(formElement, questionButton.nextSibling);
+
+        // добавляем обработчик событий для формы
+        formElement.addEventListener('submit', (event) => {
+            event.preventDefault(); // отменяем стандартное поведение формы
+
+            // получаем данные формы
+            const messageInput = formElement.querySelector('.chat__input--ask');
+            const message = messageInput.value.trim();
+
+            if (message !== '') {
+                messageInput.value = '';
+                disableForm();
+                createMessageElement('user', message);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                // отправляем данные формы на сервер
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/Grammar/SendMessage');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        try {
+                            // обрабатываем ответ сервера
+                            const response = xhr.responseText;
+                            console.log('Server response:', response);
+                            // выводим ответ сервера на странице в виде сообщения от ИИ
+                            createMessageElement('ai', response);
+                            chatBox.scrollTop = chatBox.scrollHeight;
+
+                        } catch (error) {
+                            console.error('Failed to parse server response:', error);
+                        }
+
+                    } else {
+                        console.error(xhr.statusText);
+                    }
+                    // возвращаем прежнее состояние формы
+                    enableForm();
+                    /*// удаляем форму
+                    formElement.remove();
+                    // показываем кнопку "Ask question"
+                    questionButton.style.display = 'block';*/
+                }
+                xhr.send(JSON.stringify({ message: message }));
+            }
+        });
+    });
+}
 
 document.querySelector('.chat__button--clear').addEventListener('click', (event) => {
     event.preventDefault(); // отменяем станд
@@ -251,7 +317,7 @@ function disableForm() {
     sendMessageBtn.disabled = true;
     sendMessageBtn.classList.add('disabled');
 
-    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples, .chat__button--correct, .chat__button--ask');
+    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples, .chat__button--correct, .chat__button--ask, .chat__button--topic');
     buttons.forEach(button => {
         button.classList.add('disabled');
         button.disabled = true;
@@ -294,7 +360,7 @@ function enableForm() {
     const sendMessageBtn = document.querySelector('.chat__send-message-btn');
     const messageInputAsk = document.querySelector('.chat__input--ask');
 
-    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples, .chat__button--correct, .chat__button--ask');
+    const buttons = document.querySelectorAll('.chat__button--rules, .chat__button--examples, .chat__button--correct, .chat__button--ask, .chat__button--topic');
     buttons.forEach(button => {
         button.classList.remove('disabled');
         button.disabled = false;

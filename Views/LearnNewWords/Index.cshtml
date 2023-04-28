@@ -5,6 +5,7 @@
 }
 
 
+
 <div class="chat-background">
     <div class="chat">
         <div class="chat_box">
@@ -12,21 +13,22 @@
                 <div class="chat__message chat__message--ai">
                     <span>Assistant</span>
                     <p></p>
-                    <p>Hello! I am your assistant who can check your text for errors and correct it</p>
+                    <p>
+                        Hello! I am your assistant who can teach you new words on a given topic.
+                        Please enter a topic so I can pick up a side-by-side of words on that topic
+                    </p>
                     <p></p>
                 </div>
 
             </div>
         </div>
 
-        @*            <button class="chat__button chat__button--clear">Clear chat</button>*@
 
 
         <div class="chat__buttons">
             <div class="chat__buttons--flex">
                 <button class="chat__button chat__button--rules ">Get rules</button>
                 <button class="chat__button chat__button--examples ">Get examples</button>
-                <button class="chat__button chat__button--ask ">Ask question</button>
             </div>
         </div>
 
@@ -34,8 +36,13 @@
             <button class="chat__button--clear">
                 <span class="chat__clear-icon" aria-hidden="true"></span>
             </button>
-            <input class="chat__input" type="text" placeholder="Write the text you want to correct here">
-            <button class="chat__send-message-btn chat__button--correct">Correct</button>
+            <input class="chat__input" type="text" placeholder="Write here your topic">
+            <button class="chat__send-message-btn chat__button--topic">Send</button>
         </form>
     </div>
 </div>
+
+<script>
+
+
+</script>

@@ -38,7 +38,7 @@ namespace Chat.Controllers
         }
         [HttpPost]
         //[Authorize]
-        public async Task<ActionResult> GetCorrects([FromBody] MessageModel messageModel)
+        public async Task<ActionResult> SelectTopic([FromBody] MessageModel messageModel)
         {
             _cache.Remove("UserChat" + GetOrSetUserIdFromCookie());
             GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());
@@ -48,8 +48,7 @@ namespace Chat.Controllers
             var UserChat = GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Correct this text:'" + message + "'." +
-                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
+            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Give list of words linked with the subject "+message));
 
             // Return the response to the client
             return Content(response);
