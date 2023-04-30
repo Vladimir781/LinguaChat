@@ -34,7 +34,7 @@ namespace Chat.Controllers
 
             // Call the OpenAI service to get a response
             string response = ConvertMarkdownToHtml(await userChat.OpenAIService.GetResponseAsync("Answer my question using the context of our correspondence. My question is:'" + message+ "'." +
-                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
+                "You must answer in two languages. First in English, and then in Russian. Response format:<p> English: your answer</p><p> Russian: your answer</p>"));
 
             // Return the response to the client
             return Content(response);
@@ -52,7 +52,7 @@ namespace Chat.Controllers
 
             // Call the OpenAI service to get a response
             string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Correct this text:'" + message+ "'." +
-                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
+                "You must answer in two languages. First in English, and then in Russian. Response format:<p> Corrected text in English: your answer</p><p> Translated text in Russian: your answer</p>"));
 
             // Return the response to the client
             return Content(response);
@@ -64,8 +64,8 @@ namespace Chat.Controllers
             var UserChat = GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("What rules did you apply to the corrected text. Also give recommendations and how it was possible to write the text differently and why." +
-                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
+            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Why did you fix it that way and give recommendations and how it was possible to write the text differently and why ?" +
+                "You must answer in two languages. First in English, and then in Russian. Response format:<p> English: your answer</p><p> Russian: your answer</p>"));
 
             // Return the response to the client
             return Content(response);
@@ -77,8 +77,8 @@ namespace Chat.Controllers
             var UserChat = GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());
 
             // Call the OpenAI service to get a response
-            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("Give a few sentences using the rules you applied. " +
-                "You must answer in two languages. First in English, and then in Russian. Response format:\r\n<div> English: your answer</div>\r\n<div> Russian: your answer</div>"));
+            string response = ConvertMarkdownToHtml(await UserChat.OpenAIService.GetResponseAsync("I don't understand.Give similar examples." +
+                "You must answer in two languages. First in English, and then in Russian. Response format:<p> English: your answer</p><p> Russian: your answer</p>"));
 
             // Return the response to the client
             return Content(response);

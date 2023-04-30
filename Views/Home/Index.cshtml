@@ -40,6 +40,39 @@
             margin-bottom: 5px;
         }
 
+    .message-list {
+        height: 480px; /* set a fixed height */
+        overflow-y: auto; /* add scroll bar if needed */
+    }
+
+    /* Set the width and height of the scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Handle when active */
+        ::-webkit-scrollbar-thumb:active {
+            background: #333;
+        }
+
 </style>
 
 <section class="welcome-header" >
@@ -52,7 +85,7 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item sign__register">
-                            <a class="nav-link text-white " href="/Chat/Index"><img src="~/img/video-circle.png" alt="A description of the image">Let's start</a>
+                            <a class="nav-link text-white " href="/Grammar/Index"><img src="~/img/video-circle.png" alt="A description of the image">Let's start</a>
                         </li>
                     }
                     else
@@ -69,11 +102,6 @@
                         </li>
                     }
                 </ul>
-
-
-
-                
-
             </div>
         </div>
     </div>
@@ -97,7 +125,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="text-white card-title">Service capabilities:</h5>
-                    <ul class="list-group list-group-flush p-0 m-0">
+                    <ul class="list-group list-group-flush p-0 m-0 message-list">
                         <li class="list-group-item user-message">
                             <div class="message-content">
                                 User proposes the lesson topic for learning new words
@@ -126,11 +154,11 @@
                     </ul>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/LearnNewWords/Index">Try it now</a>
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/LearnNewWords/Index">Learn new words</a>
                     }
                     else
                     {
-                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Register">Sign Up/Log In</a>
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Login">Sign Up/Log In</a>
                     }
                 </div>
             </div>
@@ -146,7 +174,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="text-white card-title">Service capabilities:</h5>
-                    <ul class="list-group list-group-flush p-0 m-0">
+                    <ul class="list-group list-group-flush p-0 m-0 message-list">
                         <li class="list-group-item user-message">
                             <div class="message-content">
                                 User can submit their text for grammar check
@@ -175,11 +203,11 @@
                     </ul>
                      @if (SignInManager.IsSignedIn(User))
                     {
-                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Grammar/Index">Try it now</a>
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Grammar/Index">Correct your text</a>
                     }
                     else
                     {
-                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Register">Sign Up/Log In</a>
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Login">Sign Up/Log In</a>
                     }
 
                 </div>
@@ -196,7 +224,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="text-white card-title">Service capabilities:</h5>
-                    <ul class="list-group list-group-flush p-0 m-0">
+                    <ul class="list-group list-group-flush p-0 m-0 message-list">
                         <li class="list-group-item user-message">
                             <div class="message-content">
                                 The user initiates communication with the AI by sending a text message
@@ -218,7 +246,14 @@
                             </div>
                         </li>
                     </ul>
-                    <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Chat/Index" style="pointer-events: none;">Soon</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Conversation/Index">Chatting now</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary mx-auto py-2 d-block mt-2 nav-link text-white" href="/Identity/Account/Login">Sign Up/Log In</a>
+                    }
                 </div>
             </div>
         </div>

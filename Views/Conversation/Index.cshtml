@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="chat-background">
+    <div class="chat">
+        <div class="chat_box">
+            <div class="chat__messages">
+                <div class="chat__message chat__message--ai">
+                    <span>Assistant</span>
+                    <p></p>
+                    <p>
+                        English: Hello, I am your interlocutor, who can talk to you about any topic.
+                        Write what you would like to chat about, and in return I will ask you questions and I will answer your questions.
+                    </p>
+                    <p>
+                        Russian: Здравствуй, я твой собеседник, который может поговорить с тобой на любую тему. 
+                        Напишите, о чем бы вы хотели попереписываться, и в ответ я задам вам вопросы и буду отвечать на ваши вопросы.
+                    </p>
+                    <p></p>
+                </div>
+
+            </div>
+        </div>
+
+        <form class="chat__form">
+            <button class="chat__button--clear">
+                <span class="chat__clear-icon" aria-hidden="true"></span>
+            </button>
+            <input class="chat__input" type="text" placeholder="Write here">
+            <button class="chat__send-message-btn chat__button--send">Send</button>
+        </form>
+    </div>
+</div>
+
+<script src="/js/conversation.js"></script>

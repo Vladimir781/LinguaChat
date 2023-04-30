@@ -214,6 +214,10 @@
 
 /* Media query for large screens */
 @media screen and (min-width: 768px) {
+    .message-list {
+        height: auto;
+
+    }
     .chat__form--ask {
         display: flex;
         align-items: center;
@@ -227,6 +231,9 @@
 
 /* Media query for mobile screens */
 @media screen and (max-width: 767px) {
+    .message-list {
+        height: auto;
+    }
     .chat__buttons--flex {
         flex-wrap: wrap;
         justify-content: center;

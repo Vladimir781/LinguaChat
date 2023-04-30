@@ -1,4 +1,4 @@
-﻿using Chat.Data;
+using Chat.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text;

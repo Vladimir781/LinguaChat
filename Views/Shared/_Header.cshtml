@@ -23,19 +23,22 @@
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">About</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About">About</a>
                     </li>
-                    <li class="nav-item">
+@*                    <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Blog</a>
-                    </li>
+                    </li>*@
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Contact</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Panel" asp-action="Index">Panel</a>
-                        </li>
+                        <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Panel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Panel" asp-action="Index">Statistics</a>
+                    </li>
                     } else
                     {
                     }
