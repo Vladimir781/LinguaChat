@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Chat.Models.UserChat">
-    <Position X="8.5" Y="3" Width="1.5" />
+  <Class Name="Chat.Controllers.LearnNewWordsController">
+    <Position X="9.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAADAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\ChatModel.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAACAAEAAAAAIAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\LearnNewWordsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chat.Controllers.BaseController">
+    <Position X="9.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEBACAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenAIService.OpenAIService">
-    <Position X="13" Y="3" Width="1.5" />
+    <Position X="11.75" Y="4.25" Width="1.5" />
     <NestedTypes>
       <Class Name="OpenAIService.OpenAIService.Message" Collapsed="true">
         <TypeIdentifier>
@@ -37,31 +44,52 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>IAACBAAAAAAAAAAAABQAABAAAAAAECAAEAAAAAAACgA=</HashCode>
+      <HashCode>IAACAAAAAAAAAAAAABQAABACAAAAECAAEAAAAAAACgA=</HashCode>
       <FileName>Services\OpenAIService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Chat.Controllers.GrammarController">
-    <Position X="10.75" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEAICAAAAIAAAAAAACAAAAAAAAAAAAAQAAFAAAAQAAA=</HashCode>
-      <FileName>Controllers\GrammarController.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Chat.Models.MessageModel">
-    <Position X="10.75" Y="6" Width="1.5" />
+    <Position X="12" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Models\ChatModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="OpenAIService.IOpenAIService">
-    <Position X="8.5" Y="5.25" Width="1.5" />
+  <Class Name="Chat.Models.AspNetUserCredit">
+    <Position X="14" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAAAAAAAAgA=</HashCode>
-      <FileName>Services\OpenAIService.cs</FileName>
+      <HashCode>gAACABAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ChatModel.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="Chat.Models.UserChat">
+    <Position X="14" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAABAAAAAQAAAAAAAAAAAAACAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\ChatModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenAIService.ResponseEventArgs">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAEAAA=</HashCode>
+      <FileName>Services\ResponseEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chat.Controllers.GrammarController">
+    <Position X="6.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAACAAAAAAAAAAAAAQAAFAAAAAAAA=</HashCode>
+      <FileName>Controllers\GrammarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chat.Controllers.Conversation">
+    <Position X="9.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgCAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\Conversation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

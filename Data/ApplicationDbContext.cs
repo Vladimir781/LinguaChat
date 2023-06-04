@@ -101,32 +101,5 @@ namespace Chat.Data
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*        public Task<AspNetUserCredit> GetAspNetUserCredit(ClaimsPrincipal user, ApplicationDbContext context)
-                {
-                    var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                    if (userId == null)
-                    {
-                        return null;
-                    }
-
-                    var userCredit =  context.AspNetUserCredits.Include(credit => credit.AspNetUser)
-                                                                    .SingleOrDefaultAsync(credit => credit.UserId == userId);
-                    Console.WriteLine(userCredit);
-                    return userCredit;
-                }*/
     }
 }

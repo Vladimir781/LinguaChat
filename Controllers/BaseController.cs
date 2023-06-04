@@ -11,46 +11,46 @@ namespace Chat.Controllers
         protected IMemoryCache _cache;
         protected static string ConvertMarkdownToHtml(string markdown)
         {
-            // Создание объекта, который выполняет преобразование Markdown в HTML
+            // Create an object that performs Markdown to HTML conversion
             var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
             Trace.TraceInformation("Response: " + markdown);
-            // Преобразование Markdown в HTML
+            // Converting Markdown to HTML
             var html = Markdown.ToHtml(markdown, pipeline);
 
-            // Возврат HTML-строки
+            // Returning an HTML string
             return html;
         }
         protected UserChat GetOrSetUserChatFromCache(string userId)
         {
             return _cache.GetOrCreate("UserChat" + userId, entry =>
             {
-                var currentUser = HttpContext.User; // получить текущего пользователя
+                var currentUser = HttpContext.User; // get the current user
                 var userChat = new UserChat();
                 userChat.InitAsync(currentUser);
                 userChat.OpenAIService.SetAssistantMessage("You are the assistant of the LinguaChat site, which is only for correcting the text and giving clarifications about the corrected text");
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30); // Устанавливаем время жизни кеша
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30); // Set the cache lifetime
                 Trace.WriteLine("Created user chat and set rule");
                 return userChat;
             });
         }
         protected string GetOrSetUserIdFromCookie()
         {
-            // Проверяем, есть ли куки с идентификатором сессии
+            // check if there is a cookie with a session ID
             if (Request.Cookies.ContainsKey(".AspNetCore.Session"))
             {
-                // Получаем значение куки
+                // Retrieve the value of the cookie
                 var cookieValue = Request.Cookies[".AspNetCore.Session"];
                 //Console.WriteLine($"Cookie value: {cookieValue}");
                 System.Diagnostics.Trace.WriteLine($"Used cookie value.");
-                // Возвращаем идентификатор сессии из куки
+                //return the session identifier from the cookie
                 return cookieValue;
             }
             else
             {
-                // Создаем новую сессию
+                // Create a new session
                 HttpContext.Session.SetString("UserId", Guid.NewGuid().ToString());
 
-                // Добавляем идентификатор сессии в куки
+                // add a session identifier to the cookie
                 Response.Cookies.Append(".AspNetCore.Session", HttpContext.Session.Id, new CookieOptions
                 {
                     Expires = DateTimeOffset.Now.AddMinutes(15),
@@ -60,7 +60,7 @@ namespace Chat.Controllers
                 });
                 Trace.WriteLine("New session created. Session ID: " + HttpContext.Session.Id);
 
-                // Возвращаем идентификатор сессии
+                //return session identifier
                 return HttpContext.Session.Id;
             }
         }

@@ -16,7 +16,7 @@ namespace Chat.Controllers
         }
         public IActionResult Index()
         {
-            // При каждом обращении к контроллеру удаляем старый объект UserChat из кеша и создаем новый
+            // Each time the controller is accessed, delete the old UserChat object from the cache and create a new one
             _cache.Remove("UserChat" + GetOrSetUserIdFromCookie());
             Trace.TraceInformation("Starting Index");
             GetOrSetUserChatFromCache(GetOrSetUserIdFromCookie());

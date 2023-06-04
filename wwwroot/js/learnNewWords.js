@@ -51,7 +51,8 @@ document.querySelector('.chat__button--topic').addEventListener('click', (event)
                     // выводим ответ сервера на странице в виде сообщения от ИИ
                     createMessageElement('ai', response);
                     // получаем список элементов списка
-                    const listItems = document.querySelectorAll('ul li, ol li');
+                    const listItems = document.querySelectorAll('.chat_box ul li, .chat_box ol li');
+
 
                     // добавляем обработчик клика на каждый элемент списка
                     // добавляем обработчик клика на каждый элемент списка

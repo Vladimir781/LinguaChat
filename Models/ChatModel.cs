@@ -24,7 +24,7 @@ namespace Chat.Models
         public AspNetUserCredit? aspNetUserCredit { get; set; } = null;
         public Task<UserChat> InitAsync(ClaimsPrincipal user)
         {
-            OpenAIService = new OpenAIService.OpenAIService("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", "https://api.openai.com/v1/chat/completions", "gpt-3.5-turbo");
+            OpenAIService = new OpenAIService.OpenAIService("***", "https://api.openai.com/v1/chat/completions", "gpt-3.5-turbo");
             User = user;
             OpenAIService.ResponseReceived += OnResponseReceived;
 
@@ -45,12 +45,6 @@ namespace Chat.Models
             var dbContext = new ApplicationDbContext(options);
             dbContext.SaveAspNetUserCredit(aspNetUserCredit, dbContext, e.PromptTokens + e.CompletionTokens);
 
-            // some logic to use PromptTokens, CompletionTokens, and TotalTokens
-            Console.WriteLine($"PromptTokens: {e.PromptTokens}, CompletionTokens: {e.CompletionTokens}, TotalTokens: {e.TotalTokens}");
-            Console.WriteLine("{0,-25} {1}", "Property", "Value");
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("{0,-25} {1}", "CreditGranted", aspNetUserCredit.CreditGranted);
-            Console.WriteLine("{0,-25} {1}", "TotalUsedTokens", aspNetUserCredit.TotalUsedTokens);
         }
 
 
